@@ -19,7 +19,7 @@ class App extends Component<Props, State> {
   state = {
     numberOfDice: 1,
     diceValues: [],
-    futureDiceValues: []
+    futureDiceValues: [],
   };
   _onClick = () => {
     if (this.state.futureDiceValues.length < 20) {
@@ -42,7 +42,7 @@ class App extends Component<Props, State> {
       new_current.push(i);
       this._generateRolls(allRolls, new_current);
     }
-  };
+  }
 
   _updateNumberOfDice = event => {
     this.setState({ numberOfDice: event.target.value });
@@ -52,7 +52,7 @@ class App extends Component<Props, State> {
   _growDiceArray() {
     this._generateRolls(this.state.futureDiceValues, []);
     shuffleArray(this.state.futureDiceValues);
-  };
+  }
 
   render() {
     const { diceValues, numberOfDice } = this.state;
@@ -72,15 +72,12 @@ class App extends Component<Props, State> {
           <select
             style={styles.inputBox}
             value={numberOfDice}
-            onChange={this._updateNumberOfDice}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
+            onChange={this._updateNumberOfDice}
+          >
+            {[...Array(8).keys()].map(n => {
+              const number = (n + 1).toString();
+              return <option value={number}>{number}</option>;
+            })}
           </select>
         </div>
       </div>
@@ -98,64 +95,64 @@ const Dice = props => <div style={styles.dice}>{props.number}</div>;
 
 const styles = {
   container: {
+    alignContent: "center",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    alignContent: "center"
   },
   inputBoxContainer: {
-    display: "flex",
     alignSelf: "center",
-    marginTop: 4,
+    display: "flex",
     marginLeft: 4,
-    marginRight: 4
+    marginRight: 4,
+    marginTop: 4,
   },
   inputBox: {
     alignSelf: "center",
-    width: 100,
+    borderRadius: 25,
+    flexGrow: 1,
+    height: 25,
     marginLeft: 16,
     marginRight: 16,
-    borderRadius: 25,
-    height: 25,
-    flexGrow: 1
+    width: 100,
   },
   diceContainer: {
-    display: "flex",
     alignSelf: "center",
-    marginRight: 20,
+    display: "flex",
+    flexWrap: "wrap",
     marginLeft: 20,
-    flexWrap: "wrap"
+    marginRight: 20,
   },
   header: {
     background: "black",
-    color: "white"
+    color: "white",
   },
   dice: {
-    textAlign: "center",
-    alignSelf: "center",
-    verticalAlign: "middle",
-    lineHeight: "50px",
-    width: "50px",
-    height: "50px",
-    borderRadius: "5px",
     borderColor: "coral",
-    borderWidth: "2px",
+    borderRadius: 5,
     borderStyle: "solid",
+    borderWidth: 2,
+    display: "flex",
+    flexDirection: "column",
+    height: 50,
+    justifyContent: "center",
     marginLeft: 4,
-    marginTop: 4
+    marginTop: 4,
+    textAlign: "center",
+    width: 50,
   },
   button: {
-    textAlign: "center",
+    borderColor: "grey",
+    borderRadius: 10,
+    borderStyle: "solid",
+    borderWidht: 1,
     fontSize: 20,
-    width: 200,
     height: 30,
     paddingTop: 10,
     paddingTottom: 10,
-    borderRadius: 10,
-    borderColor: "grey",
-    borderWidht: 1,
-    borderStyle: "solid"
-  }
+    textAlign: "center",
+    width: 200,
+  },
 };
 
 export default App;
