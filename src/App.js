@@ -1,5 +1,7 @@
 // @flow
 import React, { Component } from "react";
+import { Shake } from "reshake";
+
 const synth = window.speechSynthesis;
 
 type Props = {};
@@ -64,9 +66,6 @@ class App extends Component<Props, State> {
         <div style={styles.inputBoxContainer}>
           <Button onClick={this._onClick} />
         </div>
-        <div style={styles.diceContainer}>
-          {diceValues.map(num => <Dice number={num} />)}
-        </div>
         <div style={styles.inputBoxContainer}>
           <span>Number of dice </span>
           <select
@@ -80,6 +79,9 @@ class App extends Component<Props, State> {
             })}
           </select>
         </div>
+        <div style={styles.diceContainer}>
+          {diceValues.map(num => <Dice number={num} />)}
+        </div>
       </div>
     );
   }
@@ -91,7 +93,21 @@ const Button = props => (
   </div>
 );
 
-const Dice = props => <div style={styles.dice}>{props.number}</div>;
+const Dice = props => (
+  <Shake
+    h={5}
+    v={5}
+    r={30}
+    q={10}
+    dur={60}
+    int={10}
+    max={100}
+    fixed={true}
+    freez={true}
+  >
+    <div style={styles.dice}>{props.number}</div>
+  </Shake>
+);
 
 const styles = {
   container: {
